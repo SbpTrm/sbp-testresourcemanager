@@ -1,0 +1,47 @@
+buildscript {
+
+	repositories {
+		mavenCentral()
+	}
+
+	ext.branchPrefixes = 'release-,feature-'
+
+	dependencies {
+//		classpath 'ru.nspk.infra:gradle-release-plugin:1.4.0-1'
+		classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.2.RELEASE'
+//		classpath "com.avast.gradle:gradle-docker-compose-plugin:0.8.3"
+//		classpath "gradle.plugin.com.palantir.gradle.gitversion:gradle-git-version:0.12.0-rc2"
+	}
+}
+
+//apply plugin: 'release'
+//apply plugin: 'com.palantir.git-version'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'io.spring.dependency-management'
+
+dependencyManagement {
+	imports {
+		mavenBom ("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
+//		mavenBom ("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+	}
+}
+
+
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+//	implementation("org.springframework.cloud:spring-cloud-starter-config")
+	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+	compileOnly "org.projectlombok:lombok:$lombokVersion"
+	testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+	testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+	implementation "org.telegram:telegrambots-spring-boot-starter:$telegramBotVersion"
+
+
+}
+
+repositories {
+	mavenCentral()
+}
