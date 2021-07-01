@@ -1,21 +1,21 @@
-package ru.nspk.sbp.trm.config;
+package ru.sbp.trm.config;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
-x@Data
+
 @Slf4j
+@Data
+@Configuration
 @ConfigurationProperties(prefix = "test.resource.manager.bot")
 public class TestResourceManagerConfigurationProperties {
-    @Value("${path}")
-    private String botPath;
-    @Value("${username}")
-    private String botUsername;
-    @Value("${token}")
-    private String botToken;
+    private String path;
+    private String username;
+    private String token;
 
     @PostConstruct
     void printConfig() {
