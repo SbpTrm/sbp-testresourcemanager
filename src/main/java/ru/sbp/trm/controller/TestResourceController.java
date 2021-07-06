@@ -19,7 +19,6 @@ public class TestResourceController {
 
     @PostMapping(path = "/")
     public BotApiMethod<?> onUpdateReceived(@RequestBody Update update) {
-        log.info("Got update: " + update.toString());
         return testResourceManagerBot.onWebhookUpdateReceived(update);
     }
 }
