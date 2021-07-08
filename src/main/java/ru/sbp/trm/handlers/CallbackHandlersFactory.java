@@ -2,7 +2,6 @@ package ru.sbp.trm.handlers;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 import ru.sbp.trm.core.BotActions;
 
 import java.util.HashMap;
@@ -20,10 +19,13 @@ public class CallbackHandlersFactory {
 
     @SneakyThrows
     public CallbackHandler getCallbackHandler(String callbackData) {
+        log.info("Getting handler for callbackData {}", callbackData);
         String actionLabel = callbackData.split(CALLBACK_DATA_SPLITTER)[0];
         log.info("Getting handler for label {}", actionLabel);
         Class<? extends CallbackHandler> handlerClass = CALLBACK_HANDLERS_CLASSES.get(actionLabel);
         log.info("Using class {} for label {}", handlerClass, actionLabel);
+        //todo переделать обработку исключения
+        if (handlerClass == null) throw new RuntimeException("Не найден класс для обработки " + actionLabel);
         return handlerClass.getConstructor().newInstance();
     }
 }
