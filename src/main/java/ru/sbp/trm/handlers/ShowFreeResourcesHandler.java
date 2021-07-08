@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import ru.sbp.trm.core.BotActions;
 import ru.sbp.trm.core.ResourceData;
 import ru.sbp.trm.core.ResourceRepository;
+import ru.sbp.trm.core.ResourceRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,8 @@ public class ShowFreeResourcesHandler implements CallbackHandler {
     private static final BotActions ACTION = BotActions.SHOW_FREE;
 
     //Todo сделать корректно
-    ResourceRepository resourceRepository;
+    ResourceRepository resourceRepository = new ResourceRepositoryImpl() {
+    };
 
     @SneakyThrows
     @Override
