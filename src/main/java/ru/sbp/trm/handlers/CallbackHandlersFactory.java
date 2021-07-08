@@ -8,7 +8,6 @@ import ru.sbp.trm.core.BotActions;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
 @Slf4j
 public class CallbackHandlersFactory {
     public static final String CALLBACK_DATA_SPLITTER = "|";

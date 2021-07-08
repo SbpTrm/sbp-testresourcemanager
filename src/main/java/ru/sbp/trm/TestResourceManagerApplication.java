@@ -19,4 +19,9 @@ public class TestResourceManagerApplication {
                                                   CallbackHandlersFactory callbackHandlersFactory) {
         return new TestResourceManagerBot(testResourceManagerConfigurationProperties, callbackHandlersFactory);
     }
+
+    @Bean
+    CallbackHandlersFactory callbackHandlersFactory(){
+        return new CallbackHandlersFactory();
+    }
 }
