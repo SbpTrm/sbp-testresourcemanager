@@ -16,11 +16,11 @@ public class MainMenuHandler implements CallbackHandler{
     public SendMessage getResponse(Update update) {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         InlineKeyboardButton showFree = InlineKeyboardButton.builder()
-                .text(BotActions.SHOW_FREE.getMessageText())
+                .text(BotActions.SHOW_FREE.getButtonText())
                 .callbackData(BotActions.SHOW_FREE.toString()).build();
 
         InlineKeyboardButton showMy = InlineKeyboardButton.builder()
-                .text(BotActions.SHOW_MY.getMessageText())
+                .text(BotActions.SHOW_MY.getButtonText())
                 .callbackData(BotActions.SHOW_MY.toString()).build();
 
         List<InlineKeyboardButton> keyboardButtonsRow = new ArrayList<>();

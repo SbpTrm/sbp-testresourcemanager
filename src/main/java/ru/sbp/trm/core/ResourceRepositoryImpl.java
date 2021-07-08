@@ -20,4 +20,13 @@ public class ResourceRepositoryImpl implements ResourceRepository{
         freeResources.add(ResourceData.builder().name("perf-2").build());
         return freeResources;
     }
+
+    @Override
+    public List<ResourceData> getMyResources() {
+        List<ResourceData> myResources = new ArrayList<>();
+        myResources.add(ResourceData.builder().name("int-8").build());
+        myResources.add(ResourceData.builder().name("int-9").build());
+        return myResources;
+    }
+
 }

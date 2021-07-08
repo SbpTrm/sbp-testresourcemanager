@@ -15,6 +15,7 @@ public class CallbackHandlersFactory {
     static {
         CALLBACK_HANDLERS_CLASSES.put(BotActions.SHOW_MAIN_MENU.toString(), MainMenuHandler.class);
         CALLBACK_HANDLERS_CLASSES.put(BotActions.SHOW_FREE.toString(), ShowFreeResourcesHandler.class);
+        CALLBACK_HANDLERS_CLASSES.put(BotActions.SHOW_MY.toString(), ShowMyResourcesHandler.class);
     }
 
     @SneakyThrows

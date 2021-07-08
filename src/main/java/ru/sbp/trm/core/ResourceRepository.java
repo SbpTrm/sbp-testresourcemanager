@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface ResourceRepository {
     List<ResourceData> getFreeResources();
+    List<ResourceData> getMyResources();
 }
