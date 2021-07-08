@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Slf4j
 public class CallbackHandlersFactory {
-    public static final String CALLBACK_DATA_SPLITTER = "|";
+    public static final String CALLBACK_DATA_SPLITTER = "\\|";
     private static final Map<String, Class<? extends CallbackHandler>> CALLBACK_HANDLERS_CLASSES = new HashMap<>();
 
     static {
