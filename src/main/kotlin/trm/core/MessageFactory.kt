@@ -19,7 +19,7 @@ fun Update.createMyResourcesMessage(): BotApiMethod<*> = SendMessage.builder()
     .text(BotActions.SHOW_MY.messageText)
     .replyMarkup(
         getResourceMenu(
-            ResourceRepository.getReservedResources(userId()),
+            ResourceRepository.getFreeResources(),
             BotActions.DISMISS
         )
     )
@@ -30,7 +30,7 @@ fun Update.createFreeResourcesMessage(): BotApiMethod<*> = SendMessage.builder()
     .text(BotActions.SHOW_FREE.messageText)
     .replyMarkup(
         getResourceMenu(
-            ResourceRepository.getFreeResources(),
+            ResourceRepository.getReservedResources(userId()),
             BotActions.ORDER
         )
     )
