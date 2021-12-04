@@ -9,7 +9,7 @@ fun Update.userId() = this.callbackQuery.from.id.toString()
 fun Update.chatId() = this.message.chat.id.toString()
 
 fun Update.createMyResourcesMessage(): BotApiMethod<*> = SendMessage.builder()
-    .chatId(chatId())
+    .chatId(this.chatId())
     .text(BotActions.SHOW_MY.messageText)
     .replyMarkup(
         getResourceMenu(
@@ -20,7 +20,7 @@ fun Update.createMyResourcesMessage(): BotApiMethod<*> = SendMessage.builder()
     .build()
 
 fun Update.createFreeResourcesMessage(): BotApiMethod<*> = SendMessage.builder()
-    .chatId(chatId())
+    .chatId(this.chatId())
     .text(BotActions.SHOW_FREE.messageText)
     .replyMarkup(
         getResourceMenu(
@@ -31,7 +31,7 @@ fun Update.createFreeResourcesMessage(): BotApiMethod<*> = SendMessage.builder()
     .build()
 
 fun Update.createMainMenuMessage(): BotApiMethod<*> = SendMessage.builder()
-    .chatId(chatId())
+    .chatId(this.chatId())
     .text(BotActions.SHOW_MAIN_MENU.messageText)
     .replyMarkup(getMainMenu())
     .build()
