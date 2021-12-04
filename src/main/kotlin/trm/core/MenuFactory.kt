@@ -24,8 +24,8 @@ fun getResourceMenu(resources: List<ResourceData>, callback: BotActions): Inline
 
 fun getMainMenu(): InlineKeyboardMarkup {
     val keyboard = createKeyboard()
-    keyboard.addButton("Мои стенды", BotActions.SHOW_FREE.name)
-    keyboard.addButton("Свободные стенды", BotActions.SHOW_MY.name)
+    keyboard.addButton("Мои стенды", BotActions.SHOW_MY.name)
+    keyboard.addButton("Свободные стенды", BotActions.SHOW_FREE.name)
     return keyboard
 }
 
