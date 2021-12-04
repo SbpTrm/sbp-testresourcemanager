@@ -1,5 +1,6 @@
 package trm
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.telegram.telegrambots.bots.TelegramWebhookBot
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod
 import org.telegram.telegrambots.meta.api.objects.Update
@@ -10,6 +11,8 @@ class TestResourceManagerBot(
     private val testResourceManagerConfigurationProperties: TestResourceManagerConfigurationProperties,
 ) : TelegramWebhookBot() {
 
+    private val OBJECT_MAPPER = ObjectMapper()
+
     override fun getBotUsername() = testResourceManagerConfigurationProperties.username
 
     override fun getBotPath() = testResourceManagerConfigurationProperties.path
@@ -18,7 +21,7 @@ class TestResourceManagerBot(
 
     override fun onWebhookUpdateReceived(update: Update): BotApiMethod<*> {
         //todo разобраться как нормально логировать
-        println("Incoming update: $update")
+        println("Incoming update: " + OBJECT_MAPPER.writeValueAsString(update))
         return update.getResponse()
     }
 
