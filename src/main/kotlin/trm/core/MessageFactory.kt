@@ -5,7 +5,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery
 import org.telegram.telegrambots.meta.api.objects.Update
 
-fun Update.userId() = this.message.from.id.toString()
+fun Update.userId() = this.callbackQuery.from.id.toString()
 fun Update.chatId() = this.message.chat.id.toString()
 
 fun Update.createMyResourcesMessage(): BotApiMethod<*> = SendMessage.builder()
