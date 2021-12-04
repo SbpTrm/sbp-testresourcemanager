@@ -16,7 +16,7 @@ fun createKeyboard(): InlineKeyboardMarkup {
 fun getResourceMenu(resources: List<ResourceData>, callback: BotActions): InlineKeyboardMarkup {
     val keyboard = createKeyboard()
     for (resource in resources) {
-        keyboard.addButton(resource.name, callback.name)
+        keyboard.addButton(callback.messageText + " " + resource.name, callback.name)
     }
     keyboard.addMainMenuButton()
     return keyboard
