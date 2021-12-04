@@ -1,4 +1,5 @@
 plugins {
+	id 'org.jetbrains.kotlin.jvm' version '1.5.31'
 	id 'org.springframework.boot' version "2.5.2"
 	id 'io.spring.dependency-management' version "1.0.11.RELEASE"
 	id 'java'
@@ -13,7 +14,7 @@ jar {
 	enabled = false
 	manifest {
 		attributes(
-				'Main-Class': 'ru.sbp.trm.TestResourceManagerApplication'
+				'Main-Class': 'trm.TestResourceManagerApplication'
 		)
 	}
 }
@@ -32,9 +33,5 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation "org.telegram:telegrambots-spring-boot-starter:$telegramBotVersion"
-
-	compileOnly "org.projectlombok:lombok:$lombokVersion"
-	testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
-	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-	testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }
