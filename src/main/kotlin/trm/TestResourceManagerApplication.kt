@@ -10,10 +10,11 @@ import trm.config.TestResourceManagerConfigurationProperties
 @EnableConfigurationProperties
 open class TestResourceManagerApplication {
 
-    @JvmName("main")
-    fun main(args: Array<String>) = runApplication<TestResourceManagerApplication>(*args)
-
     @Bean
     open fun testResourceManagerBot(testResourceManagerConfigurationProperties: TestResourceManagerConfigurationProperties) =
         TestResourceManagerBot(testResourceManagerConfigurationProperties)
+}
+
+fun main(args: Array<String>) {
+    runApplication<TestResourceManagerApplication>(*args)
 }
