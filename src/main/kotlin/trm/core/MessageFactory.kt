@@ -6,9 +6,10 @@ import org.telegram.telegrambots.meta.api.objects.CallbackQuery
 import org.telegram.telegrambots.meta.api.objects.Update
 
 fun Update.userId() = this.message.from.id.toString()
+fun Update.chatId() = this.message.chat.id.toString()
 
 fun Update.createMyResourcesMessage(): BotApiMethod<*> = SendMessage.builder()
-    .chatId(this.message.chatId.toString())
+    .chatId(chatId())
     .text(BotActions.SHOW_MY.messageText)
     .replyMarkup(
         getResourceMenu(
@@ -19,7 +20,7 @@ fun Update.createMyResourcesMessage(): BotApiMethod<*> = SendMessage.builder()
     .build()
 
 fun Update.createFreeResourcesMessage(): BotApiMethod<*> = SendMessage.builder()
-    .chatId(this.message.chatId.toString())
+    .chatId(chatId())
     .text(BotActions.SHOW_FREE.messageText)
     .replyMarkup(
         getResourceMenu(
@@ -30,7 +31,7 @@ fun Update.createFreeResourcesMessage(): BotApiMethod<*> = SendMessage.builder()
     .build()
 
 fun Update.createMainMenuMessage(): BotApiMethod<*> = SendMessage.builder()
-    .chatId(this.message.chatId.toString())
+    .chatId(chatId())
     .text(BotActions.SHOW_MAIN_MENU.messageText)
     .replyMarkup(getMainMenu())
     .build()
@@ -45,6 +46,6 @@ fun Update.dismissResource(callbackQuery: CallbackQuery): BotApiMethod<*> {
     return createMyResourcesMessage()
 }
 
-fun CallbackQuery.resourceName(): String{
+fun CallbackQuery.resourceName(): String {
     return this.data
 }
