@@ -9,7 +9,7 @@ data class ResourceData(
     val date: String? = null
 )
 
-enum class ResourceStatus { FREE, ORDERING, RESERVED }
+enum class ResourceStatus { FREE, RESERVED }
 
 @Service
 object ResourceRepository {

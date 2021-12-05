@@ -42,13 +42,13 @@ fun Update.createMainMenuMessage(): BotApiMethod<*> = SendMessage.builder()
     .replyMarkup(getMainMenu())
     .build()
 
-fun Update.orderResource(callbackQuery: CallbackQuery): BotApiMethod<*> {
-    ResourceRepository.orderResource(userId(), callbackQuery.resourceName())
+fun Update.orderResource(resourceName: String): BotApiMethod<*> {
+    ResourceRepository.orderResource(userId(), resourceName)
     return createMyResourcesMessage()
 }
 
-fun Update.dismissResource(callbackQuery: CallbackQuery): BotApiMethod<*> {
-    ResourceRepository.dismissResource(userId(), callbackQuery.resourceName())
+fun Update.dismissResource(resourceName: String): BotApiMethod<*> {
+    ResourceRepository.dismissResource(userId(), resourceName)
     return createMyResourcesMessage()
 }
 

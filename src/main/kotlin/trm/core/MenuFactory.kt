@@ -3,9 +3,11 @@ package trm.core
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton
-import trm.core.BotActions.SHOW_MAIN_MENU
+import trm.core.BotActions.*
 
 private val OBJECT_MAPPER = ObjectMapper()
+
+class Callback(val action: BotActions, val resId: String? = null)
 
 fun createKeyboard(): InlineKeyboardMarkup {
     val inlineKeyboardMarkup = InlineKeyboardMarkup()
@@ -24,8 +26,8 @@ fun getResourceMenu(resources: List<ResourceData>, callback: BotActions): Inline
 
 fun getMainMenu(): InlineKeyboardMarkup {
     val keyboard = createKeyboard()
-    keyboard.addButton("Мои стенды", BotActions.SHOW_MY.name)
-    keyboard.addButton("Свободные стенды", BotActions.SHOW_FREE.name)
+    keyboard.addButton("Мои стенды", OBJECT_MAPPER.writeValueAsString(Callback(SHOW_MY)))
+    keyboard.addButton("Свободные стенды", OBJECT_MAPPER.writeValueAsString(Callback(SHOW_FREE)))
     return keyboard
 }
 
@@ -34,7 +36,7 @@ fun InlineKeyboardMarkup.addMainMenuButton() {
         mutableListOf<InlineKeyboardButton>(
             InlineKeyboardButton.builder()
                 .text("Главное меню")
-                .callbackData(OBJECT_MAPPER.writeValueAsString(SHOW_MAIN_MENU.name))
+                .callbackData(OBJECT_MAPPER.writeValueAsString(Callback(SHOW_MAIN_MENU)))
                 .build()
         )
     )
