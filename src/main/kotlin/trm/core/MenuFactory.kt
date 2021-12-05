@@ -24,10 +24,10 @@ fun createKeyboard(): InlineKeyboardMarkup {
     return inlineKeyboardMarkup
 }
 
-fun getResourceMenu(resources: List<ResourceData>, callback: BotActions): InlineKeyboardMarkup {
+fun getResourceMenu(resources: List<ResourceData>, action: BotActions): InlineKeyboardMarkup {
     val keyboard = createKeyboard()
     for (resource in resources) {
-        keyboard.addButton(callback.messageText + " " + resource.name, Callback(ORDER, resource.name).toJson())
+        keyboard.addButton(action.messageText + " " + resource.name, Callback(action, resource.name).toJson())
     }
     keyboard.addMainMenuButton()
     return keyboard
