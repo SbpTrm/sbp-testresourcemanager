@@ -43,6 +43,7 @@ fun InlineKeyboardMarkup.addMainMenuButton() {
 }
 
 fun InlineKeyboardMarkup.addButton(text: String, callback: String?) {
+    println("add button with text='$text' and callback='$callback'")
     this.keyboard.add(
         mutableListOf<InlineKeyboardButton>(
             InlineKeyboardButton.builder()
