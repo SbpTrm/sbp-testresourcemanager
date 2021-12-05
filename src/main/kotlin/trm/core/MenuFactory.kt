@@ -1,11 +1,20 @@
 package trm.core
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.GsonBuilder
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton
 import trm.core.BotActions.*
 
-private val OBJECT_MAPPER = ObjectMapper()
+fun Any.toJson(): String = when (this) {
+    is String -> this
+    else -> {
+        val builder = GsonBuilder()
+        builder.serializeNulls()
+        builder.create().toJson(this)
+    }
+}
+
+fun <T : Any?> String.fromJson(type: Class<T>): T = GsonBuilder().serializeNulls().create().fromJson(this, type)
 
 class Callback(val action: BotActions, val resId: String? = null)
 
@@ -26,8 +35,8 @@ fun getResourceMenu(resources: List<ResourceData>, callback: BotActions): Inline
 
 fun getMainMenu(): InlineKeyboardMarkup {
     val keyboard = createKeyboard()
-    keyboard.addButton("Мои стенды", OBJECT_MAPPER.writeValueAsString(Callback(SHOW_MY)))
-    keyboard.addButton("Свободные стенды", OBJECT_MAPPER.writeValueAsString(Callback(SHOW_FREE)))
+    keyboard.addButton("Мои стенды", Callback(SHOW_MY).toJson())
+    keyboard.addButton("Свободные стенды", Callback(SHOW_FREE).toJson())
     return keyboard
 }
 
@@ -36,7 +45,7 @@ fun InlineKeyboardMarkup.addMainMenuButton() {
         mutableListOf<InlineKeyboardButton>(
             InlineKeyboardButton.builder()
                 .text("Главное меню")
-                .callbackData(OBJECT_MAPPER.writeValueAsString(Callback(SHOW_MAIN_MENU)))
+                .callbackData(Callback(SHOW_MAIN_MENU).toJson())
                 .build()
         )
     )

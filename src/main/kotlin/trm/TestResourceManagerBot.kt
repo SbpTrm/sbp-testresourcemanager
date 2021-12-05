@@ -13,8 +13,6 @@ class TestResourceManagerBot(
     private val testResourceManagerConfigurationProperties: TestResourceManagerConfigurationProperties,
 ) : TelegramWebhookBot() {
 
-    private val OBJECT_MAPPER = ObjectMapper()
-
     override fun getBotUsername() = testResourceManagerConfigurationProperties.username
 
     override fun getBotPath() = testResourceManagerConfigurationProperties.path
@@ -23,10 +21,9 @@ class TestResourceManagerBot(
 
     override fun onWebhookUpdateReceived(update: Update): BotApiMethod<*> {
         //todo разобраться как нормально логировать
-        println("Incoming update: " + OBJECT_MAPPER.writeValueAsString(update))
+        println("Incoming update: ${update.toJson()}")
         if (update.hasCallbackQuery()) {
-            val callback: Callback =
-                OBJECT_MAPPER.readValue(update.callbackQuery.data, object : TypeReference<Callback>() {})
+            val callback : Callback = update.callbackQuery.data.fromJson(Callback::class.java)
             return when (callback.action) {
                 (SHOW_MY) -> update.createMyResourcesMessage()
                 (SHOW_FREE) -> update.createFreeResourcesMessage()
