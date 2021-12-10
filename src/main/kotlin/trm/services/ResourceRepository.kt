@@ -22,7 +22,7 @@ open class ResourceRepository {
 
     fun getFreeResources(): List<ResourceData> {
         return resourceJdbcTemplate.query(
-            "select * from Resources where status = '${ResourceStatus.FREE.name}' order by name",
+            "select * from resources where status = '${ResourceStatus.FREE.name}' order by name",
             arrayOf<ResourceData>()
         )
         { rs, _ ->
@@ -30,8 +30,8 @@ open class ResourceRepository {
                 name = rs.getString("name"),
                 status = ResourceStatus.valueOf(rs.getString("status")),
                 userId = rs.getNString("userId"),
-                userName = rs.getNString("userId"),
-                timestamp = rs.getNString("userId")
+                userName = rs.getNString("userName"),
+                timestamp = rs.getNString("timestamp")
             )
         }
     }
