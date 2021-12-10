@@ -32,7 +32,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 	implementation("org.telegram:telegrambots-spring-boot-starter:$telegramBotVersion")
 	implementation("com.google.code.gson:gson:$gsonVersion")
+	runtimeOnly ("org.postgresql:postgresql")
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }

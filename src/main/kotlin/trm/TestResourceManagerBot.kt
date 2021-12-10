@@ -1,17 +1,22 @@
 package trm
 
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.ObjectMapper
+import org.springframework.beans.factory.annotation.Autowired
 import org.telegram.telegrambots.bots.TelegramWebhookBot
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod
 import org.telegram.telegrambots.meta.api.objects.Update
 import trm.config.TestResourceManagerConfigurationProperties
-import trm.core.*
 import trm.core.BotActions.*
+import trm.core.Callback
+import trm.core.UpdateHandler
+import trm.core.fromJson
+import trm.core.toJson
 
 class TestResourceManagerBot(
     private val testResourceManagerConfigurationProperties: TestResourceManagerConfigurationProperties,
 ) : TelegramWebhookBot() {
+
+    @Autowired
+    lateinit var updateHandler: UpdateHandler
 
     override fun getBotUsername() = testResourceManagerConfigurationProperties.username
 
@@ -23,15 +28,15 @@ class TestResourceManagerBot(
         //todo разобраться как нормально логировать
         println("Incoming update: ${update.toJson()}")
         if (update.hasCallbackQuery()) {
-            val callback : Callback = update.callbackQuery.data.fromJson(Callback::class.java)
+            val callback: Callback = update.callbackQuery.data.fromJson(Callback::class.java)
             return when (callback.action) {
-                (SHOW_MY) -> update.createMyResourcesMessage()
-                (SHOW_FREE) -> update.createFreeResourcesMessage()
-                (ORDER) -> update.orderResource(callback.resId!!)
-                (DISMISS) -> update.dismissResource(callback.resId!!)
-                else -> update.createMainMenuMessage()
+                (SHOW_MY) -> updateHandler.createMyResourcesMessage(update)
+                (SHOW_FREE) -> updateHandler.createFreeResourcesMessage(update)
+                (ORDER) -> updateHandler.orderResource(callback.resId!!, update)
+                (DISMISS) -> updateHandler.dismissResource(callback.resId!!, update)
+                else -> updateHandler.createMainMenuMessage(update)
             }
         }
-        return update.createMainMenuMessage()
+        return updateHandler.createMainMenuMessage(update)
     }
 }
