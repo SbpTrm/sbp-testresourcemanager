@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton
 import trm.core.BotActions.*
+import trm.services.ResourceData
 
 fun Any.toJson(): String = when (this) {
     is String -> this
