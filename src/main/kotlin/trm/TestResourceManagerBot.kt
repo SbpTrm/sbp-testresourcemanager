@@ -12,11 +12,9 @@ import trm.core.fromJson
 import trm.core.toJson
 
 class TestResourceManagerBot(
-    private val testResourceManagerConfigurationProperties: TestResourceManagerConfigurationProperties,
+    @Autowired val testResourceManagerConfigurationProperties: TestResourceManagerConfigurationProperties,
+    @Autowired val updateHandler: UpdateHandler
 ) : TelegramWebhookBot() {
-
-    @Autowired
-    lateinit var updateHandler: UpdateHandler
 
     override fun getBotUsername() = testResourceManagerConfigurationProperties.username
 

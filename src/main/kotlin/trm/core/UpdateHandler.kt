@@ -1,17 +1,14 @@
 package trm.core
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.objects.Update
 import trm.repository.ResourceRepository
 
-@Component
-class UpdateHandler {
-
-    @Autowired
-    lateinit var repository: ResourceRepository
+@Service
+class UpdateHandler(@Autowired val repository: ResourceRepository) {
 
     fun createMyResourcesMessage(update: Update): BotApiMethod<*> = SendMessage.builder()
         .chatId(update.chatId())
