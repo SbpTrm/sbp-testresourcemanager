@@ -35,7 +35,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 	implementation("org.telegram:telegrambots-spring-boot-starter:$telegramBotVersion")
 	implementation("com.google.code.gson:gson:$gsonVersion")
-	implementation ("org.postgresql:postgresql")
+	implementation("org.postgresql:postgresql")
 	implementation("org.liquibase:liquibase-core:$liquibaseVersion")
 	implementation("org.liquibase:liquibase-maven-plugin:$liquibaseVersion")
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"

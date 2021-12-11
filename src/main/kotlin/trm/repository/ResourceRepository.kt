@@ -17,10 +17,7 @@ data class ResourceData(
 enum class ResourceStatus { FREE, RESERVED }
 
 @Repository
-open class ResourceRepository {
-
-    @Autowired
-    lateinit var resourceJdbcTemplate: JdbcTemplate
+open class ResourceRepository(@Autowired val resourceJdbcTemplate: JdbcTemplate) {
 
     fun getFreeResources(): List<ResourceData> {
         return resourceJdbcTemplate.query(
