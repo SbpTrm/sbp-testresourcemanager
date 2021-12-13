@@ -17,11 +17,11 @@ data class ResourceData(
 enum class ResourceStatus { FREE, RESERVED }
 
 @Repository
-open class ResourceRepository(@Autowired val resourceJdbcTemplate: JdbcTemplate) {
+open class ResourceRepository(@Autowired val jdbcTemplate: JdbcTemplate) {
 
     fun getFreeResources(): List<ResourceData> {
-        println("resourceJdbcTemplate=$resourceJdbcTemplate")
-        return resourceJdbcTemplate.query(
+        println("resourceJdbcTemplate=$jdbcTemplate")
+        return jdbcTemplate.query(
             "select * from resources where status = '${ResourceStatus.FREE.name}' order by name",
             arrayOf<ResourceData>()
         )
@@ -37,7 +37,7 @@ open class ResourceRepository(@Autowired val resourceJdbcTemplate: JdbcTemplate)
     }
 
     fun getReservedResourcesByUserId(userId: String): List<ResourceData> {
-        return resourceJdbcTemplate.query(
+        return jdbcTemplate.query(
             "select * from resources where status = '${ResourceStatus.RESERVED.name}' and userId = '$userId' order by name",
             arrayOf<ResourceData>()
         )
@@ -54,7 +54,7 @@ open class ResourceRepository(@Autowired val resourceJdbcTemplate: JdbcTemplate)
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     open fun orderResource(userId: String, resourceName: String) {
-        resourceJdbcTemplate.update(
+        jdbcTemplate.update(
             """
             UPDATE resources
             SET status = '${ResourceStatus.RESERVED.name}',
@@ -65,7 +65,7 @@ open class ResourceRepository(@Autowired val resourceJdbcTemplate: JdbcTemplate)
     }
 
     fun dismissResource(userId: String, resourceName: String) {
-        resourceJdbcTemplate.update(
+        jdbcTemplate.update(
             """
             UPDATE resources
             SET status = '${ResourceStatus.FREE.name}',
