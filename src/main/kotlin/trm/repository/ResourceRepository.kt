@@ -1,7 +1,6 @@
 package trm.repository
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
-import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 
@@ -15,7 +14,6 @@ data class ResourceData(
 
 enum class ResourceStatus { FREE, RESERVED }
 
-@Repository
 open class ResourceRepository(private val jdbcTemplate: NamedParameterJdbcTemplate) {
 
     fun getFreeResources(): List<ResourceData> {

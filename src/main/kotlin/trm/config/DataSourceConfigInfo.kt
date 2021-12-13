@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
+import trm.repository.ResourceRepository
 import javax.sql.DataSource
 
 @Configuration
@@ -17,4 +19,8 @@ open class DataSourceConfigInfo(@Autowired val dataSourceProperties: DataSourceP
         config.jdbcUrl = dataSourceProperties.url
         return HikariDataSource(config)
     }
+
+    @Bean
+    open fun resourceRepository(jdbcTemplate: NamedParameterJdbcTemplate) =
+        ResourceRepository(jdbcTemplate)
 }
