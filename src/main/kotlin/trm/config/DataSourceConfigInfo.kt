@@ -12,7 +12,7 @@ import javax.sql.DataSource
 open class DataSourceConfigInfo(@Autowired val dataSourceProperties: DataSourceProperties) {
 
     @Bean
-    open fun dataSource(): DataSource? {
+    open fun dataSource(): DataSource {
         val config = HikariConfig()
         config.jdbcUrl = dataSourceProperties.url
         return HikariDataSource(config)

@@ -20,6 +20,7 @@ enum class ResourceStatus { FREE, RESERVED }
 open class ResourceRepository(@Autowired val resourceJdbcTemplate: JdbcTemplate) {
 
     fun getFreeResources(): List<ResourceData> {
+        println("resourceJdbcTemplate=$resourceJdbcTemplate")
         return resourceJdbcTemplate.query(
             "select * from resources where status = '${ResourceStatus.FREE.name}' order by name",
             arrayOf<ResourceData>()
