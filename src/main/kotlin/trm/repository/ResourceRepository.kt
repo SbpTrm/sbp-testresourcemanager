@@ -1,7 +1,6 @@
 package trm.repository
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
@@ -17,13 +16,12 @@ data class ResourceData(
 enum class ResourceStatus { FREE, RESERVED }
 
 @Repository
-open class ResourceRepository(@Autowired val jdbcTemplate: JdbcTemplate) {
+open class ResourceRepository(private val jdbcTemplate: NamedParameterJdbcTemplate) {
 
     fun getFreeResources(): List<ResourceData> {
         println("resourceJdbcTemplate=$jdbcTemplate")
         return jdbcTemplate.query(
-            "select * from resources where status = '${ResourceStatus.FREE.name}' order by name",
-            arrayOf<ResourceData>()
+            "select * from resources where status = '${ResourceStatus.FREE.name}' order by name"
         )
         { rs, _ ->
             ResourceData(
@@ -38,8 +36,7 @@ open class ResourceRepository(@Autowired val jdbcTemplate: JdbcTemplate) {
 
     fun getReservedResourcesByUserId(userId: String): List<ResourceData> {
         return jdbcTemplate.query(
-            "select * from resources where status = '${ResourceStatus.RESERVED.name}' and userId = '$userId' order by name",
-            arrayOf<ResourceData>()
+            "select * from resources where status = '${ResourceStatus.RESERVED.name}' and userId = '$userId' order by name"
         )
         { rs, _ ->
             ResourceData(
@@ -60,7 +57,7 @@ open class ResourceRepository(@Autowired val jdbcTemplate: JdbcTemplate) {
             SET status = '${ResourceStatus.RESERVED.name}',
                 userId = '$userId'
             WHERE name = '$resourceName' and status = '${ResourceStatus.FREE.name}; 
-            """
+            """, mutableMapOf<String, String>()
         )
     }
 
@@ -71,7 +68,7 @@ open class ResourceRepository(@Autowired val jdbcTemplate: JdbcTemplate) {
             SET status = '${ResourceStatus.FREE.name}',
                 userId = '$userId'
             WHERE name = '$resourceName' and status = '${ResourceStatus.RESERVED.name}' and userId = '$userId'
-            """
+            """, mutableMapOf<String, String>()
         )
     }
 }
