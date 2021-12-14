@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties
+import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
@@ -21,6 +22,7 @@ open class DataSourceConfigInfo(@Autowired val dataSourceProperties: DataSourceP
     }
 
     @Bean
-    open fun resourceRepository(jdbcTemplate: NamedParameterJdbcTemplate) =
-        ResourceRepository(jdbcTemplate)
+    open fun resourceRepository(dataSource: DataSource) =
+        ResourceRepository(dataSource)
+
 }
