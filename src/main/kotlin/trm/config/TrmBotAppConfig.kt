@@ -22,12 +22,25 @@ open class TrmBotAppConfig(@Autowired val dataSourceProperties: DataSourceProper
     }
 
     @Bean
-    open fun jdbcTemplate(dataSource: DataSource) = JdbcTemplate(dataSource)
+    open fun jdbcTemplate(dataSource: DataSource): JdbcTemplate {
+        val jdbcTemplate = JdbcTemplate(dataSource)
+        println("jdbcTemplateBean=$jdbcTemplate")
+        return jdbcTemplate
+    }
 
     @Bean
-    open fun resourceRepository(jdbcTemplate: JdbcTemplate) = ResourceRepository(jdbcTemplate)
+    open fun resourceRepository(jdbcTemplate: JdbcTemplate): ResourceRepository {
+        val resourceRepository = ResourceRepository(jdbcTemplate)
+        println("resourceRepositoryBean=$resourceRepository")
+        return resourceRepository
+    }
 
     @Bean
-    open fun updateHandler(resourceRepository: ResourceRepository) = UpdateHandler(resourceRepository)
+    open fun updateHandler(resourceRepository: ResourceRepository): UpdateHandler {
+        val updateHandler = UpdateHandler(resourceRepository)
+        println("updateHandlerBean=$updateHandler")
+        return updateHandler
+
+    }
 
 }
