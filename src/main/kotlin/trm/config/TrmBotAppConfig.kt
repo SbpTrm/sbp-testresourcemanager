@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.jdbc.core.JdbcTemplate
 import trm.core.UpdateHandler
 import trm.repository.ResourceRepository
 import javax.sql.DataSource
@@ -21,13 +22,12 @@ open class TrmBotAppConfig(@Autowired val dataSourceProperties: DataSourceProper
     }
 
     @Bean
-    open fun resourceRepository(dataSource: DataSource): ResourceRepository {
-        return ResourceRepository(dataSource)
-    }
+    open fun jdbcTemplate(dataSource: DataSource) = JdbcTemplate(dataSource)
 
     @Bean
-    open fun updateHandler(resourceRepository: ResourceRepository): UpdateHandler {
-        return UpdateHandler(resourceRepository)
-    }
+    open fun resourceRepository(jdbcTemplate: JdbcTemplate) = ResourceRepository(jdbcTemplate)
+
+    @Bean
+    open fun updateHandler(resourceRepository: ResourceRepository) = UpdateHandler(resourceRepository)
 
 }
