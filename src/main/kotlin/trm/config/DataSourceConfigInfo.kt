@@ -4,10 +4,8 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties
-import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import trm.repository.ResourceRepository
 import javax.sql.DataSource
 
@@ -18,7 +16,9 @@ open class DataSourceConfigInfo(@Autowired val dataSourceProperties: DataSourceP
     open fun dataSource(): DataSource {
         val config = HikariConfig()
         config.jdbcUrl = dataSourceProperties.url
-        return HikariDataSource(config)
+        val hikariDataSource = HikariDataSource(config)
+        println("hikariDataSource=$hikariDataSource")
+        return hikariDataSource
     }
 
     @Bean
