@@ -6,25 +6,28 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import trm.core.UpdateHandler
 import trm.repository.ResourceRepository
 import javax.sql.DataSource
 
 @Configuration
-open class DataSourceConfigInfo(@Autowired val dataSourceProperties: DataSourceProperties) {
+open class TrmBotAppConfig(@Autowired val dataSourceProperties: DataSourceProperties) {
 
     @Bean
     open fun dataSource(): DataSource {
         val config = HikariConfig()
         config.jdbcUrl = dataSourceProperties.url
-        val hikariDataSource = HikariDataSource(config)
-        println("hikariDataSource=$hikariDataSource")
-        return hikariDataSource
+        return HikariDataSource(config)
     }
 
     @Bean
     open fun resourceRepository(dataSource: DataSource): ResourceRepository {
-        println("resourceRepository-dataSource=$dataSource")
         return ResourceRepository(dataSource)
+    }
+
+    @Bean
+    open fun updateHandler(resourceRepository: ResourceRepository): UpdateHandler {
+        return UpdateHandler(resourceRepository)
     }
 
 }
