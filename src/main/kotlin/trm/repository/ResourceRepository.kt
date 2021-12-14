@@ -15,7 +15,7 @@ data class ResourceData(
 
 enum class ResourceStatus { FREE, RESERVED }
 
-open class ResourceRepository(dataSource: DataSource) {
+open class ResourceRepository(private val dataSource: DataSource) {
 
     private val jdbcTemplate: JdbcTemplate
 
@@ -26,6 +26,7 @@ open class ResourceRepository(dataSource: DataSource) {
 
     fun getFreeResources(): List<ResourceData> {
         println("resourceJdbcTemplate=$jdbcTemplate")
+        println("dataSource=$dataSource")
         return jdbcTemplate.query(
             "select * from resources where status = '${ResourceStatus.FREE.name}' order by name"
         )
