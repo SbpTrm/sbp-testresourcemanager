@@ -15,11 +15,12 @@ data class ResourceData(
 
 enum class ResourceStatus { FREE, RESERVED }
 
-open class ResourceRepository(private val dataSource: DataSource) {
+open class ResourceRepository(dataSource: DataSource) {
 
     private val jdbcTemplate: JdbcTemplate
 
     init {
+        println("init resource repository datasource=$dataSource")
         this.jdbcTemplate = JdbcTemplate(dataSource)
     }
 
