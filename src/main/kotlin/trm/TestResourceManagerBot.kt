@@ -1,6 +1,5 @@
 package trm
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.telegram.telegrambots.bots.TelegramWebhookBot
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod
 import org.telegram.telegrambots.meta.api.objects.Update
@@ -12,8 +11,8 @@ import trm.core.fromJson
 import trm.core.toJson
 
 class TestResourceManagerBot(
-    @Autowired val testResourceManagerConfigurationProperties: TestResourceManagerConfigurationProperties,
-    @Autowired val updateHandler: UpdateHandler
+    private val testResourceManagerConfigurationProperties: TestResourceManagerConfigurationProperties,
+    private val updateHandler: UpdateHandler
 ) : TelegramWebhookBot() {
 
     override fun getBotUsername() = testResourceManagerConfigurationProperties.username

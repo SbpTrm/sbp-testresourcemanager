@@ -12,8 +12,10 @@ import trm.core.UpdateHandler
 open class TestResourceManagerApplication {
 
     @Bean
-    open fun testResourceManagerBot(testResourceManagerConfigurationProperties: TestResourceManagerConfigurationProperties,
-                                    updateHandler: UpdateHandler) =
+    open fun testResourceManagerBot(
+        testResourceManagerConfigurationProperties: TestResourceManagerConfigurationProperties,
+        updateHandler: UpdateHandler
+    ) =
         TestResourceManagerBot(testResourceManagerConfigurationProperties, updateHandler)
 }
 
