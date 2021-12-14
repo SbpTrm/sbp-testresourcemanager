@@ -55,11 +55,11 @@ open class TrmBotAppConfig(@Autowired val dataSourceProperties: DataSourceProper
         return testResourceManagerBot
     }
 
-    @Bean
+/*    @Bean
     open fun testResourceController(testResourceManagerBot: TestResourceManagerBot): TestResourceController {
         val testResourceController = TestResourceController(testResourceManagerBot)
         println("testResourceControllerBean=$testResourceController")
         return testResourceController
-    }
+    }*/
 
 }
