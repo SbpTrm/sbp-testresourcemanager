@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.jdbc.core.JdbcTemplate
+import trm.TestResourceManagerBot
 import trm.core.UpdateHandler
 import trm.repository.ResourceRepository
 import javax.sql.DataSource
@@ -41,6 +42,16 @@ open class TrmBotAppConfig(@Autowired val dataSourceProperties: DataSourceProper
         println("updateHandlerBean=$updateHandler")
         return updateHandler
 
+    }
+
+    @Bean
+    open fun testResourceManagerBot(
+        testResourceManagerConfigurationProperties: TestResourceManagerConfigurationProperties,
+        updateHandler: UpdateHandler
+    ): TestResourceManagerBot {
+        val testResourceManagerBot = TestResourceManagerBot(testResourceManagerConfigurationProperties, updateHandler)
+        println("testResourceManagerBean=$testResourceManagerBot")
+        return testResourceManagerBot
     }
 
 }
