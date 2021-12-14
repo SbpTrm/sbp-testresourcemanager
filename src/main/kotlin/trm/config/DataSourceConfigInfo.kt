@@ -22,7 +22,9 @@ open class DataSourceConfigInfo(@Autowired val dataSourceProperties: DataSourceP
     }
 
     @Bean
-    open fun resourceRepository(dataSource: DataSource) =
-        ResourceRepository(dataSource)
+    open fun resourceRepository(dataSource: DataSource): ResourceRepository {
+        println("resourceRepository-dataSource=$dataSource")
+        return ResourceRepository(dataSource)
+    }
 
 }
