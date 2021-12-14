@@ -10,6 +10,10 @@ import trm.repository.ResourceRepository
 @Service
 class UpdateHandler(@Autowired val repository: ResourceRepository) {
 
+    init {
+        println("repository.getFreeResources=" + repository.getFreeResources())
+    }
+
     fun createMyResourcesMessage(update: Update): BotApiMethod<*> = SendMessage.builder()
         .chatId(update.chatId())
         .text(BotActions.SHOW_MY.messageText)
